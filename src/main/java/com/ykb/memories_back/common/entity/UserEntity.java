@@ -38,5 +38,6 @@ public class UserEntity {
         this.name = dto.getName();
         this.address = dto.getAddress();
         this.detailAddress = dto.getDetailAddress();
+        this.snsId = dto.getSnsId();
     }
 }

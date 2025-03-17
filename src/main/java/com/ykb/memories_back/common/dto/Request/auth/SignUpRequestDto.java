@@ -17,7 +17,7 @@ public class SignUpRequestDto {
     private String userId;
 
     @NotBlank
-    @Pattern(regexp = "^(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]{8,13}$")
+    @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{8,13}$")
     private String userPassword;
 
     @NotBlank
@@ -33,5 +33,5 @@ public class SignUpRequestDto {
     @Pattern(regexp = "^(NORMAL|KAKAO|NAVER)$")
     private String joinType;
 
-
+    private String snsId;
 }
