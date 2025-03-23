@@ -17,6 +17,7 @@ public class GetDiaryResponseDto extends ResponseDto{
     private String feeling;
     private String title;
     private String content;
+    private String writerId;
     
     private GetDiaryResponseDto(DiaryEntity diaryEntity){
         this.writeDate = diaryEntity.getWriteDate();
@@ -24,6 +25,7 @@ public class GetDiaryResponseDto extends ResponseDto{
         this.feeling = diaryEntity.getFeeling();
         this.title = diaryEntity.getTitle();
         this.content = diaryEntity.getContent();
+        this.writerId = diaryEntity.getUserId();
     }
 
     public static ResponseEntity<GetDiaryResponseDto> success(DiaryEntity diaryEntity){
