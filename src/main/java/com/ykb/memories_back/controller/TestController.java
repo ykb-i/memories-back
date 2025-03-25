@@ -13,6 +13,8 @@ import com.ykb.memories_back.common.dto.Request.test.PostMemoryRequestDto;
 import com.ykb.memories_back.common.dto.Response.ResponseDto;
 import com.ykb.memories_back.common.dto.Response.test.GetConcentrationResponseDto;
 import com.ykb.memories_back.common.dto.Response.test.GetMemoryResponseDto;
+import com.ykb.memories_back.common.dto.Response.test.GetRecentlyConcentrationResponseDto;
+import com.ykb.memories_back.common.dto.Response.test.GetRecentlyMemoryResponseDto;
 import com.ykb.memories_back.service.TestService;
 
 import jakarta.validation.Valid;
@@ -42,6 +44,14 @@ public class TestController {
     return response;
   }
 
+  @GetMapping("/memory/recently")
+  public ResponseEntity<? super GetRecentlyMemoryResponseDto> getRecentlyMemory(
+    @AuthenticationPrincipal String userId
+  ){
+    ResponseEntity<? super GetRecentlyMemoryResponseDto> response = testService.getRecentlyMemory(userId);
+    return response;
+  }
+
   @PostMapping("/concentration")
   public ResponseEntity<ResponseDto> postConcentration(
     @RequestBody @Valid PostConcentrationRequestDto requestBody,
@@ -58,4 +68,13 @@ public class TestController {
     ResponseEntity<? super GetConcentrationResponseDto> response = testService.getConcentration(userId);
     return response;
   }
+
+  @GetMapping("/concentration/recently")
+  public ResponseEntity<? super GetRecentlyConcentrationResponseDto> getRecentlyConcentration(
+    @AuthenticationPrincipal String userId
+  ) {
+    ResponseEntity<? super GetRecentlyConcentrationResponseDto> response = testService.getRecentlyConcentration(userId);
+    return response;
+  }
+  
 }

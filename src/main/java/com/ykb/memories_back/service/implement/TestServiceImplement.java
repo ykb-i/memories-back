@@ -12,6 +12,8 @@ import com.ykb.memories_back.common.dto.Request.test.PostMemoryRequestDto;
 import com.ykb.memories_back.common.dto.Response.ResponseDto;
 import com.ykb.memories_back.common.dto.Response.test.GetConcentrationResponseDto;
 import com.ykb.memories_back.common.dto.Response.test.GetMemoryResponseDto;
+import com.ykb.memories_back.common.dto.Response.test.GetRecentlyConcentrationResponseDto;
+import com.ykb.memories_back.common.dto.Response.test.GetRecentlyMemoryResponseDto;
 import com.ykb.memories_back.common.entity.ConcentrationTestEntity;
 import com.ykb.memories_back.common.entity.MemoryTestEntity;
 import com.ykb.memories_back.repository.ConcentrationTestRepository;
@@ -108,6 +110,40 @@ public class TestServiceImplement implements TestService{
     }
 
     return GetConcentrationResponseDto.success(concentrationTestEntities);
+  }
+
+  @Override
+  public ResponseEntity<? super GetRecentlyMemoryResponseDto> getRecentlyMemory(String userId) {
+
+    List<MemoryTestEntity> memoryTestEntities = new ArrayList<>();
+
+    try{
+
+      memoryTestEntities = memoryTestRepository.findTop10ByUserIdOrderBySequenceDesc(userId);
+
+    } catch(Exception exception){
+      exception.printStackTrace();
+      return ResponseDto.databaseError();
+    }
+
+    return GetRecentlyMemoryResponseDto.success(memoryTestEntities);
+  }
+
+  @Override
+  public ResponseEntity<? super GetRecentlyConcentrationResponseDto> getRecentlyConcentration(String userId) {
+
+    List<ConcentrationTestEntity> concentrationTestEntities = new ArrayList<>();
+
+    try{
+
+      concentrationTestEntities = concentrationTestRepository.findTop10ByUserIdOrderBySequenceDesc(userId);
+
+    } catch(Exception exception) {
+      exception.printStackTrace();
+      return ResponseDto.databaseError();
+    }
+
+    return GetRecentlyConcentrationResponseDto.success(concentrationTestEntities);
   }
   
 }
