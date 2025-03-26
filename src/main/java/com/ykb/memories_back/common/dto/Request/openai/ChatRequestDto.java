@@ -1,4 +1,4 @@
-package com.ykb.memories_back.common.dto.request.openai;
+package com.ykb.memories_back.common.dto.Request.openai;
 
 import java.util.List;
 
