@@ -12,4 +12,5 @@ public interface ResponseMessage {
     String SIGN_IN_FAIL = "Sign in Fail.";
 
     String DATABASE_ERROR = "DataBase Error";
+    String OPEN_AI_ERROR = "Open AI Error";
 }

@@ -1,5 +1,10 @@
 package com.ykb.memories_back.service;
 
+import org.springframework.http.ResponseEntity;
+
+import com.ykb.memories_back.common.dto.Request.openai.GetWayRequestDto;
+import com.ykb.memories_back.common.dto.Response.openai.GetWayResponseDto;
+
 public interface OpenAIService {
-  String chat();
+  ResponseEntity<? super GetWayResponseDto> getWay(GetWayRequestDto dto, String userId);
 }
