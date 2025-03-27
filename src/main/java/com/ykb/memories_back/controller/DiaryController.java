@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ykb.memories_back.common.dto.Request.diary.PatchDiaryRequestDto;
+import com.ykb.memories_back.common.dto.Request.diary.PostCommentRequestDto;
 import com.ykb.memories_back.common.dto.Request.diary.PostDiaryRequestDto;
 import com.ykb.memories_back.common.dto.Response.ResponseDto;
+import com.ykb.memories_back.common.dto.Response.diary.GetCommentResponseDto;
 import com.ykb.memories_back.common.dto.Response.diary.GetDiaryResponseDto;
 import com.ykb.memories_back.common.dto.Response.diary.GetEmpathyResponseDto;
 import com.ykb.memories_back.common.dto.Response.diary.GetMyDiaryResponseDto;
@@ -93,4 +95,32 @@ public class DiaryController {
     ResponseEntity<ResponseDto> response = diaryService.putEmpathy(diaryNumber, userId);
     return response;
   }
+
+  @GetMapping("/{diaryNumber}/comment")
+  public ResponseEntity<? super GetCommentResponseDto> getComment(
+    @PathVariable("diaryNumber") Integer diaryNumber
+  ){
+    ResponseEntity<? super GetCommentResponseDto> response = diaryService.getComment(diaryNumber);
+    return response;
+  }
+
+  @PostMapping("/{diaryNumber}/comment")
+  public ResponseEntity<ResponseDto> postComment(
+    @RequestBody @Valid PostCommentRequestDto requestBody,
+    @PathVariable("diaryNumber") @Valid Integer diaryNumber,
+    @AuthenticationPrincipal String userId
+  ){
+    ResponseEntity<ResponseDto> response = diaryService.postComment(requestBody, diaryNumber, userId);
+    return response;
+  }
+
+  @DeleteMapping("/{diaryNumber}/comment/{commentNumber}")
+  public ResponseEntity<ResponseDto> deleteComment(
+    @PathVariable("diaryNumber") @Valid Integer diaryNumber,
+    @PathVariable("commentNumber") @Valid Integer commentNumber,
+    @AuthenticationPrincipal String userId
+  ){
+    ResponseEntity<ResponseDto> response = diaryService.deleteComment(commentNumber, diaryNumber, userId);
+    return response;
+  } 
 }

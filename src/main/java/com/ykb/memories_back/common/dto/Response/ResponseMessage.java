@@ -6,6 +6,7 @@ public interface ResponseMessage {
     String VALIDATION_FAIL = "Validation Fail.";
     String EXIST_USER = "Exist User.";
     String NO_EXIST_DIARY = "No Exist Diary";
+    String NO_EXIST_COMMENT = "No Exist Comment";
 
     String NO_PERMISSION = "No Permission";
 
