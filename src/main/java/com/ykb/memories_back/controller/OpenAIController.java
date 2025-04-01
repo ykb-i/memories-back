@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ykb.memories_back.common.dto.Request.openai.ChatRequestDto;
 import com.ykb.memories_back.common.dto.Request.openai.GetWayRequestDto;
+import com.ykb.memories_back.common.dto.Response.openai.ChatResponseDto;
 import com.ykb.memories_back.common.dto.Response.openai.GetWayResponseDto;
 import com.ykb.memories_back.service.OpenAIService;
 
@@ -16,18 +18,17 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/v1/open-ai")
+@RequestMapping("/openai")
 @RequiredArgsConstructor
 public class OpenAIController {
   
   private final OpenAIService openAIService;
 
-  @PostMapping("/way")
-  public ResponseEntity<? super GetWayResponseDto> getWay(
-    @RequestBody @Valid GetWayRequestDto requestBody,
-    @AuthenticationPrincipal String userId
+  @PostMapping("/chat")
+  public ResponseEntity<ChatResponseDto> chat(
+    @RequestBody @Valid ChatRequestDto requestBody
   ) {
-    return openAIService.getWay(requestBody, userId);
+    return openAIService.chat(requestBody);
   }
 
 }

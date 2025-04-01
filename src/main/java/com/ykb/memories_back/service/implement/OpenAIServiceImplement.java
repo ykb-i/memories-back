@@ -2,6 +2,7 @@ package com.ykb.memories_back.service.implement;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -68,6 +69,29 @@ public class OpenAIServiceImplement implements OpenAIService {
     }
 
     return GetWayResponseDto.success(result);
+  }
+
+  @Override
+  public ResponseEntity<ChatResponseDto> chat(ChatRequestDto dto) {
+
+    try {
+      ChatResponseDto responseBody = webClient.post()
+        .uri("/chat/completions")
+        .bodyValue(dto)
+        .retrieve()
+        .bodyToMono(ChatResponseDto.class)
+        .block();
+
+      if (responseBody == null || responseBody.getChoices().isEmpty()) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+      }
+
+      return ResponseEntity.ok(responseBody);
+      
+    } catch(Exception exception) {
+      exception.printStackTrace();
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
   }
 
  
